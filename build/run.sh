@@ -15,7 +15,7 @@ fi
 
 echo Running publish client against: ${train_url}
 
-java -jar target/*-jar-with-dependencies.jar ${train_url}
+java -jar *-jar-with-dependencies.jar ${train_url}
 
 exit $? # return the code from the last command.
 
