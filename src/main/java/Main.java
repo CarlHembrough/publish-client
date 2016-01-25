@@ -12,7 +12,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -23,7 +26,7 @@ public class Main {
     static String trainUrl = "http://localhost:8084";
     static String baseUri = "/previous/v/testcontent"; // where to put the test publish
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParseException {
 
         boolean publishComplete = true;
 
@@ -91,6 +94,13 @@ public class Main {
             if (!result.error) {
                 publishComplete = true;
             }
+
+
+            Date startReported = DateConverter.toDate(result.transaction.startDate);
+            Date endReported = DateConverter.toDate(result.transaction.endDate);
+            Log.print("Time reported for start: %s", result.transaction.startDate);
+            Log.print("Time reported for end: %s", result.transaction.endDate);
+            Log.print("Time reported for publish: %d", ((endReported.getTime() - startReported.getTime())));
             Log.print("Time taken for Commit: %dms", (System.currentTimeMillis() - startCommit));
             Log.print("Total overall time for publish: %dms", (System.currentTimeMillis() - start));
 
@@ -108,6 +118,8 @@ public class Main {
         if (!publishComplete) {
             System.exit(1);
         }
+
+        System.exit(0);
     }
 
     private static void publishFile(Host theTrainHost, String encryptionPassword, String transactionId, List<Future<IOException>> results, String source) {
