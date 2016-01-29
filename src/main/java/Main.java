@@ -69,6 +69,11 @@ public class Main {
             files.add("example-timeseries/datasets/pageunencrypted/2015/csdb.xlsx");
             files.add("example-timeseries/datasets/pageunencrypted/2015/data.json");
 
+            files.add("environmentalaccounts/datasets/werwerwerwerwerwr/2015/csdb10.csdb");
+            files.add("environmentalaccounts/datasets/werwerwerwerwerwr/2015/csdb10.csv");
+            files.add("environmentalaccounts/datasets/werwerwerwerwerwr/2015/csdb10.xlsx");
+            files.add("environmentalaccounts/timeseries-to-publish.zip");
+
             for (String source : files) {
                 publishFile(theTrainHost, encryptionPassword, transactionId, results, source);
             }
